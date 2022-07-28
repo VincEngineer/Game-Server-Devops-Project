@@ -11,7 +11,6 @@ https://mega.nz/file/uHxzwAzD#Mamm6pIaFbUn6nGF9yS8mex-O4qMd79AUAEFdpFwRCw
 https://mega.nz/file/XCRyBDQC#eYr9HCCWtYaZ0KHq-J6nBp8r-87uxrnSt1d9RupmSgs
 
 3. The SRO game client:
-
 https://mega.nz/file/uCYlFBxT#s3FAjti3ednhNIw1DhwEpnsr0TL4jwYl0YDA8fN0F2Y
 
 4. the IP injector for the client to connect to the game server.
