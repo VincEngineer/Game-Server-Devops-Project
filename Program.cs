@@ -16,8 +16,8 @@ namespace GameserverAutomation
         {
 
 
-            
-            
+
+
 
             Console.ResetColor();
             Console.Title = "Game Server Installation V1.0";
@@ -29,7 +29,7 @@ namespace GameserverAutomation
             Console.WriteLine("|-----------------------------------------------------------------------------------------|");
             Console.WriteLine("|--------------------------------------###Version 1.0###----------------------------------|");
             Console.WriteLine("|-----------------------------------------------------------------------------------------|");
-            Console.WriteLine("|------------------------------PRESS (ENTER) TO START THE SCRIPT--------------------------|");
+            Console.WriteLine("|-----------------------------------------------------------------------------------------|");
 
             //Gathering User Input:
             Console.Write("Enter your Public IP address:");
@@ -55,12 +55,12 @@ namespace GameserverAutomation
             Console.Write("Press yes or no (yes/no)");
             var ExecuteShellScript = Console.ReadLine();
             Console.ResetColor();
-            
+
 
 
             if (ExecuteShellScript == "yes")
             {
-              
+
                 PowerShellScriptFile("GameServerScript.ps1");
 
 
@@ -78,7 +78,7 @@ namespace GameserverAutomation
                             ZipFile.ExtractToDirectory(ZipedModules, Global.To_GameServer_FileFolder, true);
                             Thread.Sleep(2000);
 
-                            //Patching Modules
+                            //Patching Modules                           
                             Console.WriteLine($"Patching IP:{PublicIP} Into Module AgentServer.exe");
                             IP_Patching_AgentServer(PublicIP);
                             Console.WriteLine($"Patching IP:{PublicIP} Into Module MachineManager.exe");
@@ -100,9 +100,9 @@ namespace GameserverAutomation
                         else
                         {
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"Waiting for IIS installation to install the folder: {Global.To_wwwrootFolder}");
+                            Console.WriteLine($"(It can take longer) Please wait for IIS installation to install the folder: {Global.To_wwwrootFolder}");
                             Console.ResetColor();
-                            Thread.Sleep(1000);
+                            Thread.Sleep(5000);
                         }
                     }
                     catch (Exception CallingMethodErros)
@@ -141,7 +141,7 @@ namespace GameserverAutomation
                     ReplacingText(PublicIP, SqlHost_UserInput, SqlPassword_UserInput, AccountDatabase_UserInput, ShardDatabase_UserInput);
 
                     //Moving Files
-                    MovingFiles();                   
+                    MovingFiles();
 
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("[+] Installation Successfully completed");
@@ -169,10 +169,10 @@ namespace GameserverAutomation
             }
 
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("------------------------------------PLEASE, RESTART THE COMPUTER---------------------------------------------------");
+            Console.WriteLine("------------------------------------Please. RESTART THE COMPUTER After Powershell Script finish, ---------------------------------------------------");
             Console.ResetColor();
-            
-            
+
+
             System.Console.ReadKey();
 
 
@@ -240,125 +240,128 @@ namespace GameserverAutomation
         public static void MovingFiles()
         {
 
-            try
+
+            if (!File.Exists(Global.MainDirectory))
             {
-                if (!File.Exists(Global.MainDirectory))
+
+                while (true)
                 {
 
-                    while (true)
+                    //Moving Files to \vSRO_Certification
+
+                    File.Copy(Global.ServerFiles[0], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[0]}", true);
+                    File.Copy(Global.ServerFiles[1], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[1]}", true);
+                    File.Copy(Global.ServerFiles[2], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[2]}", true);
+                    Thread.Sleep(250);
+
+                    //Moving Files to \vSRO_Server                       
+                    File.Copy(Global.ServerFiles[3], $"{Global.To_GameServer_FileFolder}{Global.ServerFiles[3]}", true);
+                    Thread.Sleep(250);
+
+
+
+                    //Moving Files to \vSRO_SMC
+                    File.Copy(Global.ServerFiles[4], $"{Global.To_SMCFolder}{Global.ServerFiles[4]}", true);
+                    File.Copy(Global.ServerFiles[5], $"{Global.To_SMCFolder}{Global.ServerFiles[5]}", true);
+                    Thread.Sleep(1750);
+
+                    //Moving Files to \wwwroot
+                    File.Copy(Global.ServerFiles[6], $"{Global.To_wwwrootFolder}{Global.ServerFiles[6]}", true);
+                    File.Copy(Global.ServerFiles[7], $"{Global.To_wwwrootFolder}{Global.ServerFiles[7]}", true);
+                    File.Copy(Global.ServerFiles[8], $"{Global.To_wwwrootFolder}{Global.ServerFiles[8]}", true);
+                    File.Copy(Global.ServerFiles[9], $"{Global.To_wwwrootFolder}{Global.ServerFiles[9]}", true);
+                    File.Copy(Global.ServerFiles[10], $"{Global.To_wwwrootFolder}{Global.ServerFiles[10]}", true);
+                    File.Copy(Global.ServerFiles[11], $"{Global.To_wwwrootFolder}{Global.ServerFiles[11]}", true);
+                    File.Copy(Global.ServerFiles[12], $"{Global.To_wwwrootFolder}{Global.ServerFiles[12]}", true);
+                    File.Copy(Global.ServerFiles[13], $"{Global.To_wwwrootFolder}{Global.ServerFiles[13]}", true);
+                    File.Copy(Global.ServerFiles[14], $"{Global.To_wwwrootFolder}{Global.ServerFiles[14]}", true);
+                    File.Copy(Global.ServerFiles[15], $"{Global.To_wwwrootFolder}{Global.ServerFiles[15]}", true);
+                    File.Copy(Global.ServerFiles[16], $"{Global.To_wwwrootFolder}{Global.ServerFiles[16]}", true);
+
+                    //check if aspnet folder exist
+                    if (!Directory.Exists(Global.To_wwwroot_aspnet_clientFolder))
                     {
+                        Directory.Move(Global.ServerFiles[17], $"{Global.To_wwwrootFolder}{Global.ServerFiles[17]}");
 
-                        //Moving Files to \vSRO_Certification
-
-                        File.Copy(Global.ServerFiles[0], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[0]}", true);
-                        File.Copy(Global.ServerFiles[1], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[1]}", true);
-                        File.Copy(Global.ServerFiles[2], $"{Global.To_Certification_iniFolder}{Global.ServerFiles[2]}", true);
-                        Thread.Sleep(250);
-
-                        //Moving Files to \vSRO_Server                       
-                        File.Copy(Global.ServerFiles[3], $"{Global.To_GameServer_FileFolder}{Global.ServerFiles[3]}", true);
-
-
-                        Thread.Sleep(250);
-
-                        //Moving Files to \vSRO_SMC
-                        File.Copy(Global.ServerFiles[4], $"{Global.To_SMCFolder}{Global.ServerFiles[4]}", true);
-                        File.Copy(Global.ServerFiles[5], $"{Global.To_SMCFolder}{Global.ServerFiles[5]}", true);
-                        Thread.Sleep(1750);
-
-                        //Moving Files to \wwwroot
-                        File.Copy(Global.ServerFiles[6], $"{Global.To_wwwrootFolder}{Global.ServerFiles[6]}", true);
-                        File.Copy(Global.ServerFiles[7], $"{Global.To_wwwrootFolder}{Global.ServerFiles[7]}", true);
-                        File.Copy(Global.ServerFiles[8], $"{Global.To_wwwrootFolder}{Global.ServerFiles[8]}", true);
-                        File.Copy(Global.ServerFiles[9], $"{Global.To_wwwrootFolder}{Global.ServerFiles[9]}", true);
-                        File.Copy(Global.ServerFiles[10], $"{Global.To_wwwrootFolder}{Global.ServerFiles[10]}", true);
-                        File.Copy(Global.ServerFiles[11], $"{Global.To_wwwrootFolder}{Global.ServerFiles[11]}", true);
-                        File.Copy(Global.ServerFiles[12], $"{Global.To_wwwrootFolder}{Global.ServerFiles[12]}", true);
-                        File.Copy(Global.ServerFiles[13], $"{Global.To_wwwrootFolder}{Global.ServerFiles[13]}", true);
-                        File.Copy(Global.ServerFiles[14], $"{Global.To_wwwrootFolder}{Global.ServerFiles[14]}", true);
-                        File.Copy(Global.ServerFiles[15], $"{Global.To_wwwrootFolder}{Global.ServerFiles[15]}", true);
-                        File.Copy(Global.ServerFiles[16], $"{Global.To_wwwrootFolder}{Global.ServerFiles[16]}", true);
-
-                        //check if aspnet folder exist
                         if (Directory.Exists(Global.To_wwwroot_aspnet_clientFolder))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Yellow;
-                            Console.WriteLine($"Deleting old directory: {Global.To_wwwroot_aspnet_clientFolder} ");
-                            Console.ResetColor();
-                            Directory.Delete(Global.To_wwwroot_aspnet_clientFolder, true);
-                            Thread.Sleep(1000);
-                            Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine(Global.ServerFiles[17] + $" Was successfully moved to {Global.To_wwwrootFolder}");
-                            Console.ResetColor();
-                            Directory.Move(Global.ServerFiles[17], $"{Global.To_wwwrootFolder}{Global.ServerFiles[17]}");
-                        }
-                        else
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine(Global.ServerFiles[17] + $"Was successfully moved to {Global.To_wwwrootFolder}");
                             Console.ResetColor();
-                            Directory.Move(Global.ServerFiles[17], $"{Global.To_wwwrootFolder}{Global.ServerFiles[17]}");
                         }
+                        
 
-
-
-
-                        //>>>>>>>>>>>>>>>>>>COMPILER of the Certification Server(IMPORTANT FOR MODULES TO WORK)<<<<<<<<<<<<<<<<<<<<<<<<
-                        ProcessStartInfo processInfo = new();
-                        Process process = new()
+                        else
                         {
-                            StartInfo = processInfo
-                        };
-                        process.StartInfo.WorkingDirectory = Global.To_CertificationFolder;
-                        //opening powershell in the background
-                        processInfo.FileName = @"powershell.exe";
-                        //executing compiler, to compile the ini folder
-                        processInfo.Arguments = @"& .\compile";
-                        processInfo.UseShellExecute = false;
-                        processInfo.CreateNoWindow = true;
-                        process.Start();
-
-                        //deleting all unneeded files after the installation is done. eventhough the printing say 'Restoring File'
-                        foreach (string FileToDelete in Global.ServerFiles)
-                        {
-
-                            if (File.Exists(FileToDelete))
-                            {
-
-                                File.Delete(FileToDelete);
-                                Console.WriteLine("Restoring File " + FileToDelete + "\n");
-
-                            }
-                            else
-                            {
-                                Console.ForegroundColor = ConsoleColor.Yellow;
-                                Console.WriteLine("Files not found, or there is no more files to clean");
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("an error occured while moving the folder aspnet, please double check this folder");
                                 Console.ResetColor();
-                            }
                         }
-
-                        break;
+                        
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine($"directory: {Global.To_wwwroot_aspnet_clientFolder} already exist, nothing to do...");
+                        Console.ResetColor();
+                        
 
                     }
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine(" [+] Files successfully Loaded\n");
-                    Console.ResetColor();
+
+
+
+
+                    //>>>>>>>>>>>>>>>>>>COMPILER of the Certification Server(IMPORTANT FOR MODULES TO WORK)<<<<<<<<<<<<<<<<<<<<<<<<
+                    ProcessStartInfo processInfo = new();
+                    Process process = new()
+                    {
+                        StartInfo = processInfo
+                    };
+                    process.StartInfo.WorkingDirectory = Global.To_CertificationFolder;
+                    //opening powershell in the background
+                    processInfo.FileName = @"powershell.exe";
+                    //executing compiler
+                    processInfo.Arguments = @"& .\compile";
+                    processInfo.UseShellExecute = false;
+                    processInfo.CreateNoWindow = true;
+                    process.Start();
+
+                    //deleting all unneeded files after the installation is done.
+                    foreach (string FileToDelete in Global.ServerFiles)
+                    {
+
+                        if (File.Exists(FileToDelete))
+                        {
+
+                            File.Delete(FileToDelete);
+                            Console.WriteLine("File " + FileToDelete + " restored and old one is deleted\n");
+
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.WriteLine("Files not found, or there is no more files to restore and delete");
+                            Console.ResetColor();
+                        }
+                    }
+
+                    break;
+
                 }
-                //Error Message
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Yellow;
-                    Console.WriteLine(" [-] Please, Check the main folder. Detecting missing file\n");
-                    Console.ResetColor();
-                }
-            }
-            //Error Message:"Process failed"
-            catch (Exception ErrorFrom_MovingFiles)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine(" [-] The process failed: {0}", ErrorFrom_MovingFiles.ToString());
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine(" [+] Files successfully Loaded\n");
                 Console.ResetColor();
             }
+            //Error Message
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(" [-] Please, Check the main folder. Detecting missing file\n");
+                Console.ResetColor();
+            }
+
+
+
 
         }
 
@@ -397,24 +400,24 @@ namespace GameserverAutomation
 
         }
 
-        public static void PowershellCommands(string Command)
-        {
-            ProcessStartInfo processStartInfo = new ProcessStartInfo();
-            ProcessStartInfo processInfo = processStartInfo;
-            processInfo.FileName = "powershell.exe";
-            processInfo.Arguments = $@"& {Command}";
-            processInfo.UseShellExecute = true;
-            processInfo.CreateNoWindow = true;
+        //public static void PowershellCommands(string Command)
+        //{
+        //    ProcessStartInfo processStartInfo = new ProcessStartInfo();
+        //    ProcessStartInfo processInfo = processStartInfo;
+        //    processInfo.FileName = "powershell.exe";
+        //    processInfo.Arguments = $@"& {Command}";
+        //    processInfo.UseShellExecute = true;
+        //    processInfo.CreateNoWindow = true;
 
-            Process process = new()
-            {
-                StartInfo = processInfo
-            };
-            process.Start();
+        //    Process process = new()
+        //    {
+        //        StartInfo = processInfo
+        //    };
+        //    process.Start();
 
 
-            Console.Read();
-        }
+        //    Console.Read();
+        //}
 
     }
 
