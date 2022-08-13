@@ -19,8 +19,7 @@ https://mega.nz/file/iDgFHRgQ#M1rM_Zlaxwtce8RR3-odWrAxgsMZpQbPERCvzZdEcYw
 Note: I will soon Upload a video on youtube to clearly explain how to install this, but it is not hard since I manage to automate almost everything.
 Probably antivirus will pop up since many things are by Injections/Cracked and 32bits, which we will need to add the execution prevention 'DEP' to our game client to run.
 
-Game Server Installer (Full Source code)
-https://mega.nz/file/OPZ0hbqJ#vDKuriUhOyaxV6atY7YpmMbGYo0bUD_-XbI2cL17sno
+
 
 Regards,
 Vincenzo Bonaiuto
