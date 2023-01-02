@@ -16,8 +16,8 @@ https://mega.nz/file/uCYlFBxT#s3FAjti3ednhNIw1DhwEpnsr0TL4jwYl0YDA8fN0F2Y
 4. the IP injector for the client to connect to the game server.
 https://mega.nz/file/iDgFHRgQ#M1rM_Zlaxwtce8RR3-odWrAxgsMZpQbPERCvzZdEcYw
 
-Note: I will soon Upload a video on youtube to clearly explain how to install this, but it is not hard since I manage to automate almost everything.
-Probably antivirus will pop up since many things are by Injections/Cracked and 32bits, which we will need to add the execution prevention 'DEP' to our game client to run.
+5. Watch my Youtube Video:
+https://www.youtube.com/watch?v=XAEYLKJU3ns&t=2s
 
 
 
